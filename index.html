@@ -417,12 +417,14 @@
         交通事業者・施設・団体等からのご連絡、掲載内容についてのお知らせ・情報提供などにご利用ください。
       </p>
 
-      <form class="contact-form"
+      <form class="contact-form" id="contactForm"
             action="https://formsubmit.co/naosukenavi@gmail.com"
             method="POST">
         <input type="hidden" name="_subject" value="新神戸駅案内ホームページからのお問い合わせ">
         <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_url" value="https://naosukenavi.github.io/#contact">
+        <input type="hidden" name="_next" value="https://naosukenavi.github.io/thanks.html">
 
         <div class="hp-field" aria-hidden="true">
           <label for="website">この欄は入力しないでください</label>
@@ -461,7 +463,7 @@
         </div>
 
         <p class="contact-note">
-          送信には外部のフォーム送信サービスを利用します。迷惑送信対策の確認画面が表示される場合があります。
+          送信後、日本語の送信完了画面に入力内容の控えを表示します。
         </p>
 
         <button class="submit-btn" type="submit">送信する</button>
@@ -471,5 +473,30 @@
   </main>
 
   <footer>© NaoMi@Kobe</footer>
+
+  <script>
+    (function () {
+      const form = document.getElementById('contactForm');
+      if (!form) return;
+
+      form.addEventListener('submit', function () {
+        const receipt = {
+          name: document.getElementById('name')?.value || '',
+          organization: document.getElementById('organization')?.value || '',
+          email: document.getElementById('email')?.value || '',
+          category: document.getElementById('category')?.value || '',
+          message: document.getElementById('message')?.value || '',
+          sentAt: new Date().toLocaleString('ja-JP')
+        };
+
+        try {
+          sessionStorage.setItem('shinkobeContactReceipt', JSON.stringify(receipt));
+        } catch (e) {
+          // If browser storage is unavailable, submission itself still proceeds.
+        }
+      });
+    })();
+  </script>
+
 </body>
 </html>
