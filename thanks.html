@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="新神戸駅案内 お問い合わせ送信完了">
+  <title>お問い合わせ送信完了｜NaoMi@Kobe 新神戸駅案内</title>
+  <style>
+    :root {
+      --navy:#17324d;
+      --blue:#2d6f9f;
+      --pale-blue:#eef6fb;
+      --cream:#fffdf8;
+      --text:#26323c;
+      --muted:#5c6b76;
+      --white:#ffffff;
+      --shadow:0 10px 28px rgba(23,50,77,.13);
+      --radius:20px;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      background:var(--cream);
+      font-family:"Yu Gothic","Hiragino Kaku Gothic ProN","Meiryo",
+                  system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+      line-height:1.75;
+    }
+    .topbar {
+      padding:22px 18px;
+      color:#fff;
+      background:linear-gradient(135deg,#17324d,#2d6f9f);
+      text-align:center;
+    }
+    .topbar a {
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
+    }
+    main {
+      width:min(760px,calc(100% - 28px));
+      margin:38px auto 54px;
+    }
+    .complete-card,
+    .receipt-card {
+      background:#fff;
+      border:1px solid #dce8ef;
+      border-radius:24px;
+      box-shadow:var(--shadow);
+    }
+    .complete-card {
+      padding:34px 30px;
+      text-align:center;
+    }
+    .check {
+      width:64px;
+      height:64px;
+      margin:0 auto 16px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      color:#fff;
+      background:var(--blue);
+      font-size:2rem;
+      font-weight:700;
+    }
+    h1 {
+      margin:0;
+      color:var(--navy);
+      font-size:clamp(1.65rem,5vw,2.2rem);
+    }
+    .lead {
+      margin:14px 0 0;
+      color:var(--muted);
+    }
+    .receipt-card {
+      margin-top:24px;
+      padding:28px;
+    }
+    .receipt-card h2 {
+      margin:0 0 18px;
+      color:var(--navy);
+      font-size:1.35rem;
+    }
+    .receipt-grid {
+      display:grid;
+      gap:0;
+      border:1px solid #dce8ef;
+      border-radius:14px;
+      overflow:hidden;
+    }
+    .receipt-row {
+      display:grid;
+      grid-template-columns:170px 1fr;
+      border-bottom:1px solid #dce8ef;
+    }
+    .receipt-row:last-child { border-bottom:0; }
+    .receipt-label {
+      padding:12px 14px;
+      background:var(--pale-blue);
+      color:var(--navy);
+      font-weight:700;
+    }
+    .receipt-value {
+      padding:12px 14px;
+      white-space:pre-wrap;
+      overflow-wrap:anywhere;
+    }
+    .message-row .receipt-value {
+      min-height:100px;
+    }
+    .notice {
+      margin:18px 0 0;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+    .actions {
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top:26px;
+    }
+    .btn {
+      display:inline-block;
+      padding:11px 19px;
+      border-radius:11px;
+      text-decoration:none;
+      font-weight:700;
+      border:1px solid var(--blue);
+    }
+    .btn.primary {
+      color:#fff;
+      background:var(--blue);
+    }
+    .btn.secondary {
+      color:var(--blue);
+      background:#fff;
+    }
+    footer {
+      padding:0 18px 32px;
+      text-align:center;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+    @media (max-width:620px) {
+      main { margin-top:24px; }
+      .complete-card, .receipt-card { padding:24px 18px; }
+      .receipt-row { grid-template-columns:1fr; }
+      .receipt-label { padding-bottom:7px; }
+      .receipt-value { padding-top:7px; }
+      .actions { flex-direction:column; }
+      .btn { width:100%; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a href="https://naosukenavi.github.io/">NaoMi@Kobe｜新神戸駅案内</a>
+  </div>
+
+  <main>
+    <section class="complete-card">
+      <div class="check" aria-hidden="true">✓</div>
+      <h1>お問い合わせを送信しました</h1>
+      <p class="lead">
+        ありがとうございます。内容を確認のうえ、必要に応じてご返信いたします。
+      </p>
+    </section>
+
+    <section class="receipt-card">
+      <h2>送信内容の控え</h2>
+
+      <div class="receipt-grid" id="receipt">
+        <div class="receipt-row">
+          <div class="receipt-label">お名前</div>
+          <div class="receipt-value" id="r-name">―</div>
+        </div>
+        <div class="receipt-row">
+          <div class="receipt-label">ご所属</div>
+          <div class="receipt-value" id="r-organization">―</div>
+        </div>
+        <div class="receipt-row">
+          <div class="receipt-label">返信先メール</div>
+          <div class="receipt-value" id="r-email">―</div>
+        </div>
+        <div class="receipt-row">
+          <div class="receipt-label">お問い合わせ種別</div>
+          <div class="receipt-value" id="r-category">―</div>
+        </div>
+        <div class="receipt-row message-row">
+          <div class="receipt-label">お問い合わせ内容</div>
+          <div class="receipt-value" id="r-message">―</div>
+        </div>
+        <div class="receipt-row">
+          <div class="receipt-label">送信日時</div>
+          <div class="receipt-value" id="r-sentAt">―</div>
+        </div>
+      </div>
+
+      <p class="notice" id="receiptNote">
+        この控えは、この画面で確認するためにブラウザ内へ一時的に保存した内容を表示しています。
+      </p>
+
+      <div class="actions">
+        <a class="btn primary" href="https://naosukenavi.github.io/">ホームページへ戻る</a>
+        <a class="btn secondary" href="https://naosukenavi.github.io/shinkobe-bus-navi/">新神戸駅前案内事典を見る</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© NaoMi@Kobe</footer>
+
+  <script>
+    (function () {
+      let data = null;
+      try {
+        const raw = sessionStorage.getItem('shinkobeContactReceipt');
+        if (raw) data = JSON.parse(raw);
+      } catch (e) {}
+
+      if (!data) {
+        document.getElementById('receipt').style.display = 'none';
+        document.getElementById('receiptNote').textContent =
+          '送信は完了しています。ブラウザの設定などにより、送信内容の控えをこの画面に表示できませんでした。';
+        return;
+      }
+
+      const set = (id, value, fallback='―') => {
+        document.getElementById(id).textContent =
+          (value && String(value).trim()) ? value : fallback;
+      };
+
+      set('r-name', data.name);
+      set('r-organization', data.organization, '（未入力）');
+      set('r-email', data.email);
+      set('r-category', data.category);
+      set('r-message', data.message);
+      set('r-sentAt', data.sentAt);
+    })();
+  </script>
+</body>
+</html>
