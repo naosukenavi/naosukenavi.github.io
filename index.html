@@ -201,6 +201,114 @@
       font-size: 0.9rem;
     }
 
+
+    .contact {
+      margin: 0 0 54px;
+      padding: 42px;
+      border-radius: 26px;
+      background: #ffffff;
+      box-shadow: var(--shadow);
+      border: 1px solid #dce8ef;
+    }
+
+    .contact h2 {
+      margin: 0 0 10px;
+      color: var(--navy);
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+    }
+
+    .contact-lead {
+      margin: 0 0 24px;
+      color: var(--muted);
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 18px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-field label {
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      padding: 12px 14px;
+      color: var(--text);
+      background: #fbfdff;
+      border: 1px solid #cbdde8;
+      border-radius: 12px;
+      font: inherit;
+    }
+
+    .form-field textarea {
+      min-height: 180px;
+      resize: vertical;
+    }
+
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      outline: 3px solid rgba(45, 111, 159, 0.16);
+      border-color: #79acd0;
+    }
+
+    .required {
+      color: #b42318;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .contact-note {
+      margin: -4px 0 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    .submit-btn {
+      justify-self: start;
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 26px;
+      color: #fff;
+      background: var(--blue);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .submit-btn:hover,
+    .submit-btn:focus-visible {
+      transform: translateY(-2px);
+      opacity: 0.92;
+      outline: none;
+    }
+
+    .hp-field {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
     @media (max-width: 800px) {
       .hero {
         min-height: 400px;
@@ -233,6 +341,18 @@
       .about {
         margin-top: 28px;
         padding: 28px 22px;
+      }
+
+      .contact {
+        padding: 28px 22px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .submit-btn {
+        width: 100%;
       }
     }
   </style>
@@ -290,6 +410,64 @@
         新神戸駅を利用する方のお役に立てればうれしいです。
       </p>
     </section>
+
+    <section class="contact" id="contact">
+      <h2>お問い合わせ</h2>
+      <p class="contact-lead">
+        交通事業者・施設・団体等からのご連絡、掲載内容についてのお知らせ・情報提供などにご利用ください。
+      </p>
+
+      <form class="contact-form"
+            action="https://formsubmit.co/naosukenavi@gmail.com"
+            method="POST">
+        <input type="hidden" name="_subject" value="新神戸駅案内ホームページからのお問い合わせ">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_url" value="https://naosukenavi.github.io/#contact">
+
+        <div class="hp-field" aria-hidden="true">
+          <label for="website">この欄は入力しないでください</label>
+          <input id="website" type="text" name="_honey" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="name">お名前 <span class="required">必須</span></label>
+            <input id="name" type="text" name="お名前" autocomplete="name" required>
+          </div>
+
+          <div class="form-field">
+            <label for="organization">ご所属 <span>（任意）</span></label>
+            <input id="organization" type="text" name="ご所属" autocomplete="organization">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="email">返信先メールアドレス <span class="required">必須</span></label>
+          <input id="email" type="email" name="email" autocomplete="email" required>
+        </div>
+
+        <div class="form-field">
+          <label for="category">お問い合わせ種別</label>
+          <select id="category" name="お問い合わせ種別">
+            <option value="交通事業者・施設・団体等からのご連絡">交通事業者・施設・団体等からのご連絡</option>
+            <option value="掲載内容の訂正・情報提供">掲載内容の訂正・情報提供</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="message">お問い合わせ内容 <span class="required">必須</span></label>
+          <textarea id="message" name="お問い合わせ内容" required></textarea>
+        </div>
+
+        <p class="contact-note">
+          送信には外部のフォーム送信サービスを利用します。迷惑送信対策の確認画面が表示される場合があります。
+        </p>
+
+        <button class="submit-btn" type="submit">送信する</button>
+      </form>
+    </section>
+
   </main>
 
   <footer>© NaoMi@Kobe</footer>
